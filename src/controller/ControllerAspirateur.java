@@ -3,6 +3,7 @@ package controller;
 import metier.Appareil;
 
 public class ControllerAspirateur {
+
     public ControllerAspirateur() {
     }
 

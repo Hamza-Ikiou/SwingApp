@@ -1,15 +1,13 @@
 package presentation;
 
-public class FenetreAction {
-    private int dimensionGrilleX;
-    private int dimensionGrilleY;
-    private int positionAppareilX;
-    private int positionAppareilY;
+import metier.Appareil;
 
-    public FenetreAction(int dimensionGrilleX, int dimensionGrilleY, int positionAppareilX, int positionAppareilY) {
-        this.dimensionGrilleX = dimensionGrilleX;
-        this.dimensionGrilleY = dimensionGrilleY;
-        this.positionAppareilX = positionAppareilX;
-        this.positionAppareilY = positionAppareilY;
+
+public class FenetreAction {
+
+    private Appareil aspirateur;
+
+    public FenetreAction(Appareil aspirateur) {
+        this.aspirateur = aspirateur;
     }
 }

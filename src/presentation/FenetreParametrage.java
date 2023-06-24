@@ -1,5 +1,8 @@
 package presentation;
 
+import metier.Aspirateur;
+import metier.Grille;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -7,13 +10,15 @@ import java.awt.event.ActionListener;
 import java.util.Objects;
 
 public class FenetreParametrage extends JFrame implements ActionListener {
-    private JTextField fieldDimensionX, fieldDimensionY, fieldAppareilX, fieldAppareilY, fieldAppareilOrientation;
-    private JButton boutonConfirmer;
-    private JLabel labelDimensionX;
+
+    private JTextField fieldDimensionX, fieldDimensionY, fieldAppareilX, fieldAppareilY;
+    private JButton boutonConfirmer, boutonNord, boutonSud, boutonEst, boutonOuest;
+    private JLabel labelErreur;
+    private String orientationSelected;
 
     public FenetreParametrage()  {
         setTitle("Paramétrage");
-        setBounds(700, 300, 300, 220);
+        setBounds(750, 250, 375, 210);
         Container contentPane = getContentPane();
         JPanel panel = new JPanel();
         
@@ -28,9 +33,14 @@ public class FenetreParametrage extends JFrame implements ActionListener {
         fieldAppareilY = new JTextField(10);
 
         JLabel labelOrientation = new JLabel("Orientation de l'appareil : ");
-        fieldAppareilOrientation = new JTextField(10);
+        boutonNord = new JButton("N");
+        boutonSud = new JButton("S");
+        boutonEst = new JButton("E");
+        boutonOuest = new JButton("O");
 
         boutonConfirmer = new JButton("Confirmer");
+        labelErreur = new JLabel("");
+        labelErreur.setForeground(Color.RED);
 
         panel.add(labelDimensionX);
         panel.add(fieldDimensionX);
@@ -42,11 +52,21 @@ public class FenetreParametrage extends JFrame implements ActionListener {
         panel.add(labelAppareilY);
         panel.add(fieldAppareilY);
         panel.add(labelOrientation);
-        panel.add(fieldAppareilOrientation);
+        panel.add(boutonNord);
+        panel.add(boutonSud);
+        panel.add(boutonEst);
+        panel.add(boutonOuest);
 
         panel.add(boutonConfirmer);
+        panel.add(labelErreur);
         contentPane.add(panel);
 
+        boutonConfirmer.addActionListener(this);
+        boutonNord.addActionListener(this);
+        boutonSud.addActionListener(this);
+        boutonEst.addActionListener(this);
+        boutonOuest.addActionListener(this);
+        orientationSelected = "";
         setVisible(true);
     }
 
@@ -54,7 +74,7 @@ public class FenetreParametrage extends JFrame implements ActionListener {
         String fieldToCheck = field.getText();
         if (Objects.nonNull(fieldToCheck) && !fieldToCheck.isEmpty()) {
             try {
-                Integer.parseInt(fieldToCheck);
+                if (Integer.parseInt(fieldToCheck) < 0) { return false; }
             } catch (NumberFormatException e) {
                 return false;
             }
@@ -64,30 +84,77 @@ public class FenetreParametrage extends JFrame implements ActionListener {
         return true;
     }
 
+    private boolean checkAppareilPosition() {
+        return Integer.parseInt(this.fieldAppareilX.getText()) <= Integer.parseInt(this.fieldDimensionX.getText())
+                && Integer.parseInt(this.fieldAppareilY.getText()) <= Integer.parseInt(this.fieldDimensionY.getText());
+    }
+
     private boolean checkAllFields() {
         return this.checkField(this.fieldDimensionX)
                 && this.checkField(this.fieldDimensionY)
                 && this.checkField(this.fieldAppareilX)
-                && this.checkField(this.fieldAppareilY);
+                && this.checkField(this.fieldAppareilY)
+                && checkAppareilPosition();
+    }
+
+    private int getOrientation(String orientation) {
+        switch (orientation) {
+            case "N" : return 0;
+            case "S" : return 90;
+            case "E" : return 180;
+            case "O" : return 270;
+        }
+        return 0;
+    }
+
+    private void enableAllButton() {
+        boutonNord.setEnabled(true);
+        boutonSud.setEnabled(true);
+        boutonEst.setEnabled(true);
+        boutonOuest.setEnabled(true);
+    }
+
+    private void setOrientationSelected(String orientation) {
+        orientationSelected = orientation;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == boutonNord) {
+            enableAllButton();
+            boutonNord.setEnabled(false);
+            setOrientationSelected("N");
+        }
+        if (e.getSource() == boutonSud) {
+            enableAllButton();
+            boutonSud.setEnabled(false);
+            setOrientationSelected("S");
+        }
+        if (e.getSource() == boutonEst) {
+            enableAllButton();
+            boutonEst.setEnabled(false);
+            setOrientationSelected("E");
+        }
+        if (e.getSource() == boutonOuest) {
+            enableAllButton();
+            boutonOuest.setEnabled(false);
+            setOrientationSelected("O");
+        }
         if (e.getSource() == boutonConfirmer) {
-            if (this.checkAllFields()) {
-
+            if (!this.checkAllFields()) {
+                labelErreur.setText("Vérifiez les champs.");
             } else {
                 new FenetreAction(
-                        Integer.parseInt(this.fieldDimensionX.getText()),
-                        Integer.parseInt(this.fieldDimensionY.getText()),
-                        Integer.parseInt(this.fieldAppareilX.getText()),
-                        Integer.parseInt(this.fieldDimensionY.getText())
+                        new Aspirateur(Integer.parseInt(this.fieldAppareilX.getText()),
+                                Integer.parseInt(this.fieldAppareilY.getText()),
+                                getOrientation(this.orientationSelected),
+                                Grille.getInstance(Integer.parseInt(this.fieldDimensionX.getText()), Integer.parseInt(this.fieldDimensionY.getText()))
+                        )
                 );
+                this.dispose();
             }
         }
     }
 
-    public static void main(String[] args) {
-        new FenetreParametrage();
-    }
+    public static void main(String[] args) { new FenetreParametrage(); }
 }
