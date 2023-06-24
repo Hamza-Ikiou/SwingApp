@@ -94,7 +94,8 @@ public class FenetreParametrage extends JFrame implements ActionListener {
                 && this.checkField(this.fieldDimensionY)
                 && this.checkField(this.fieldAppareilX)
                 && this.checkField(this.fieldAppareilY)
-                && checkAppareilPosition();
+                && checkAppareilPosition()
+                && !this.orientationSelected.isEmpty();
     }
 
     private int getOrientation(String orientation) {
