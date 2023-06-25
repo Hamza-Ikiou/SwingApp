@@ -14,7 +14,7 @@ Après avoir extrait le fichier iHoover-master.zip
     - Se placer dans le répertoire contenant le projet
     - cd /iHoover-master/src/
     - javac main.java
-    - java main.class
+    - java main
 
 # Fonctionnement de l'application
 
