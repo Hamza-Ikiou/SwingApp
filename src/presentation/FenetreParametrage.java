@@ -2,6 +2,7 @@ package presentation;
 
 import metier.Aspirateur;
 import metier.Grille;
+import utils.AdapterOrientation;
 
 import javax.swing.*;
 import java.awt.*;
@@ -98,16 +99,6 @@ public class FenetreParametrage extends JFrame implements ActionListener {
                 && !this.orientationSelected.isEmpty();
     }
 
-    private int getOrientation(String orientation) {
-        switch (orientation) {
-            case "N" : return 0;
-            case "S" : return 90;
-            case "E" : return 180;
-            case "O" : return 270;
-        }
-        return 0;
-    }
-
     private void enableAllButton() {
         boutonNord.setEnabled(true);
         boutonSud.setEnabled(true);
@@ -148,7 +139,7 @@ public class FenetreParametrage extends JFrame implements ActionListener {
                 new FenetreAction(
                         new Aspirateur(Integer.parseInt(this.fieldAppareilX.getText()),
                                 Integer.parseInt(this.fieldAppareilY.getText()),
-                                getOrientation(this.orientationSelected),
+                                AdapterOrientation.stringToIntOrientation(orientationSelected),
                                 Grille.getInstance(Integer.parseInt(this.fieldDimensionX.getText()), Integer.parseInt(this.fieldDimensionY.getText()))
                         )
                 );

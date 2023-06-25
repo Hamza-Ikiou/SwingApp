@@ -4,14 +4,17 @@ import metier.Appareil;
 
 public class ControllerAspirateur {
 
-    public ControllerAspirateur() {
+    private Appareil aspirateur;
+
+    public ControllerAspirateur(Appareil aspirateur) {
+        this.aspirateur = aspirateur;
     }
 
-    public void setOrientationAspirateur(Appareil aspirateur, String orientation) {
-        aspirateur.setOrientation(orientation);
+    public void setOrientationAspirateur(String orientation) {
+        this.aspirateur.setOrientation(orientation);
     }
 
-    public void avancerAspirateur(Appareil aspirateur) {
-        aspirateur.avancer();
+    public void avancerAspirateur() {
+        this.aspirateur.avancer();
     }
 }

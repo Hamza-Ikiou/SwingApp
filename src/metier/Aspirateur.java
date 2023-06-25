@@ -14,22 +14,6 @@ public class Aspirateur implements Appareil {
         this.grille = grille;
     }
 
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public int getOrientation() {
-        return orientation;
-    }
-
-    public Grille getGrille() {
-        return grille;
-    }
-
     private boolean peutAvancerEnX() {
         return this.x >= 0 && this.x < this.grille.getMaxX();
     }
@@ -40,18 +24,18 @@ public class Aspirateur implements Appareil {
         return this.y >= 0 && this.y < this.grille.getMaxY();
     }
 
-    private boolean peutReculerEnY() { return this.y <= this.grille.getMaxX() && this.y > 0;  }
+    private boolean peutReculerEnY() { return this.y <= this.grille.getMaxY() && this.y > 0;  }
 
     private boolean isNord() {
         return this.orientation == 0;
     }
 
     private boolean isSud() {
-        return this.orientation == 90;
+        return this.orientation == 180;
     }
 
     private boolean isEst() {
-        return this.orientation == 180;
+        return this.orientation == 90;
     }
 
     private boolean isOuest() {
@@ -71,18 +55,30 @@ public class Aspirateur implements Appareil {
     }
 
     private void reculeEnY() {
-        if (peutReculerEnY()) { this.y--; }
+        if (this.peutReculerEnY()) { this.y--; }
     }
 
     private void tourneOrientationDroite() {
         if (this.isOuest()) { this.orientation = 0; }
-        else { this.orientation = this.orientation + 90; }
+        else { this.orientation += 90; }
     }
 
     private void tourneOrientationGauche() {
-        if (this.isEst()) { this.orientation = 0; }
-        else { this.orientation = this.orientation - 90; }
+        if (this.isNord()) { this.orientation = 270; }
+        else { this.orientation -= 90; }
     }
+
+    @Override
+    public int getX() { return x; }
+
+    @Override
+    public int getY() { return y; }
+
+    @Override
+    public int getOrientation() { return orientation; }
+
+    @Override
+    public Grille getGrille() { return grille; }
 
     @Override
     public void setOrientation(String direction) {
@@ -97,4 +93,5 @@ public class Aspirateur implements Appareil {
         if (this.isEst()) { this.avanceEnX(); }
         if (this.isOuest()) { this.reculeEnX(); }
     }
+
 }
