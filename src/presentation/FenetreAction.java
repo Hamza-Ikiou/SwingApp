@@ -24,6 +24,8 @@ public class FenetreAction extends JFrame implements ActionListener {
 
         setTitle("Démo aspirateur");
         setBounds(750, 250, 500, 300);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(false);
         Container contentPane = getContentPane();
         JPanel panel = new JPanel();
 

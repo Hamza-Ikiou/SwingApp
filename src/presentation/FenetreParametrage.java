@@ -20,6 +20,8 @@ public class FenetreParametrage extends JFrame implements ActionListener {
     public FenetreParametrage()  {
         setTitle("Paramétrage");
         setBounds(750, 250, 375, 210);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(false);
         Container contentPane = getContentPane();
         JPanel panel = new JPanel();
         
