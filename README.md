@@ -4,26 +4,23 @@
 
 # Lancement de l'application
 
-Après avoir extrait le fichier iHoover-master.zip
+Après avoir extrait le fichier SwingApp-master.zip
 
 - Depuis un IDE :
-    - Ouvrir le projet iHoover-master
+    - Ouvrir le projet SwingApp-master
     - Lancer le fichier main.java
   
 - En ligne de commande :
     - Se placer dans le répertoire contenant le projet
-    - cd /iHoover-master/src/
+    - cd /SwingApp-master/src/
     - javac main.java
     - java main
 
 # Fonctionnement de l'application
 
-Après avoir lancer le main.java, une fenêtre apparait.
-Il faut remplir les dimensions de la grille ainsi que la position de l'aspirateur.
-Vous ne pouvez indiquer uniquement des nombres positifs dans les champs.
-Vous ne pouvez pas indiquer des nombres strictement supérieurs à la grille dans la position de l'aspirateur.
-Enfin, il faut sélectionner une orientation pour l'aspirateur (N/S/E/O).
-Après avoir cliquer sur le bouton confirmer,
-une nouvelle fenêtre s'ouvre avec les informations de la simulation.
-Vous pouvez cliquer sur le bouton D pour changer l'orientation de l'aspirateur vers la droite
-et le bouton G pour la changer vers la gauche. Le bouton A fera avancer l'aspirateur.
+- Remplir les dimensions de la grille (nombres positifs uniquement)
+- Indiquer la position de l'appareil (nombres inférieurs ou égales à la grille)
+- Sélectionner une orientation pour l'appareil (N/S/E/O)
+- Cliquer sur le bouton confirmer
+- Diriger l'appareil à l'aider des boutons (D = droite, G = gauche)
+- Avancer l'appareil à l'aide du bouton A
